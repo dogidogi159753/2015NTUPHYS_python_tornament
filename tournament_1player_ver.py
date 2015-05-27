@@ -260,7 +260,6 @@ class sprite:
                 if abs(osx)<l: return True
 
         return False
-
 # sprites for player 1 and 2
 sp_player1 = sprite(0.25,0.2)
 sp_player1.type = 5
@@ -289,6 +288,7 @@ invader_fcount = 0  # counts of frames for adding new invader
 center_message = ''
 center_message_delay = 0
 
+
 def init():
     plt_invader1.set_data([], [])
     plt_invader2.set_data([], [])
@@ -300,7 +300,7 @@ def init():
     plt_explosion.set_data([], [])
     plt_bullet_inv.set_data([], [])
     plt_bullet_ply.set_data([], [])
-    
+
     plt_tx_center.set(text='')
     plt_tx_p1.set(text='P1 ')
     plt_tx_p2.set(text=' P2')
@@ -310,7 +310,7 @@ def init():
     plt_gauge_p2.set_data([], [])
     plt_gauge_attack_p1.set_data([], [])
     plt_gauge_attack_p2.set_data([], [])
-    
+
 #    return plt_invader1, plt_invader2, plt_invader3, plt_invader4, plt_ufo, plt_player1, plt_player2, plt_explosion, plt_bullet_inv, plt_bullet_ply, plt_tx_center, plt_tx_p1, plt_tx_p2, plt_tx_p1_hp, plt_tx_p2_hp, plt_gauge_p1, plt_gauge_p2, plt_gauge_attack_p1, plt_gauge_attack_p2
     return plt_invader1, plt_invader2, plt_invader3, plt_invader4, plt_ufo, plt_player1, plt_explosion, plt_bullet_inv, plt_bullet_ply, plt_tx_center, plt_tx_p1, plt_tx_p2, plt_tx_p1_hp, plt_tx_p2_hp, plt_gauge_p1, plt_gauge_p2, plt_gauge_attack_p1, plt_gauge_attack_p2
 
@@ -748,38 +748,47 @@ def animate(i):
 
 # main animation function call
 #anim = animation.FuncAnimation(fig, animate, init_func=init, interval=20)
+if __name__ == '__main__':
+    score = 0.
+    for j in range(1, 31):
+        i = 0
+        while sp_player1.enabled:
+            animate(i)
+            i += 1
+        score += ply_score[0]
+        print j, "th p1's score:", score/j
+            # sprites for player 1 and 2
+        sp_player1 = sprite(0.25,0.2)
+        sp_player1.type = 5
+        sp_player1.path = 0
+        sp_player1.hp = 10
 
-score = 0.
-for j in range(1, 31):
+        # additional information for players
+        ply_score = [0,0]
+        ply_gauge = [1.,1.]
+        ply_gauge_attack = [0,0]
+        ply_gauge_freeze = [0,0]
+
+        # sprite holders
+        splist_invader = []
+        splist_bullet_inv = []
+        splist_bullet_ply1 = []
+        splist_bullet_ply2 = []
+        splist_explosion = []
+
+        invader_level = 1   # start with level 1
+        invader_fcount = 0  # counts of frames for adding new invader
+        center_message = ''
+        center_message_delay = 0
+    print "p1's score:", score/30.
+    # plt.tight_layout()
+    #plt.show()
+
+def fitness(parameter = None):
     i = 0
+    if parameter:
+        player1.parameter = parameter
     while sp_player1.enabled:
-        animate(i)
-        i += 1
-    score += ply_score[0]
-    print j, "th p1's score:", score/j
-        # sprites for player 1 and 2
-    sp_player1 = sprite(0.25,0.2)
-    sp_player1.type = 5
-    sp_player1.path = 0
-    sp_player1.hp = 10
-    
-    # additional information for players
-    ply_score = [0,0]
-    ply_gauge = [1.,1.]
-    ply_gauge_attack = [0,0]
-    ply_gauge_freeze = [0,0]
-    
-    # sprite holders
-    splist_invader = []
-    splist_bullet_inv = []
-    splist_bullet_ply1 = []
-    splist_bullet_ply2 = []
-    splist_explosion = []
-    
-    invader_level = 1   # start with level 1
-    invader_fcount = 0  # counts of frames for adding new invader
-    center_message = ''
-    center_message_delay = 0
-print "p1's score:", score/30.
-# plt.tight_layout()
-#plt.show()
+            animate(i)
+            i += 1
+    return ply_score[0]

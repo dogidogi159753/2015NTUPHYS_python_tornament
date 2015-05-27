@@ -18,7 +18,7 @@ def eval_collision(p, obj): # collision detection, only consider the center of o
     return False
 
 class player_module:
-        
+
     # constructor, allocate any private date here
     def __init__(self):
         self.init_x, self.init_y = -1., -1.

@@ -17,6 +17,9 @@ def eval_collision(p, obj): # collision detection, only consider the center of o
     return False
 
 class player_module:
+    parameter = {
+        "caution_dist" : 0.2,
+    }
         
     # constructor, allocate any private date here
     def __init__(self):
@@ -49,7 +52,7 @@ class player_module:
         speed, angle = 0., 0.
 
         # parameters
-        caution_dist = 0.2
+        caution_dist = self.parameter["caution_dist"]
 
         # flags
         release_gauge = False
