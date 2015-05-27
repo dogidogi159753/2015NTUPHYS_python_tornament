@@ -120,8 +120,10 @@ class player_module:
                 force.append([type3_q/dist**(dist_p)*np.cos(f_angle), type3_q/dist**(dist_p)*np.sin(f_angle)])
             else:
                 if dist < caution_r:
-                    f_angle = point2Slope([x, y], [player1_x, player1_y])
-                    force.append([curve_q/dist**dist_p*np.cos(f_angle), curve_q/dist**dist_p*np.sin(f_angle)])
+                    tmp_x = player1_x-dy/dx*(dy/dx*player1_x-player1_y+y-dy/dx*x)/((dy/dx)**2+1)
+                    tmp_y = player1_y+(dy/dx*player1_x-player1_y+y-dy/dx*x)/((dy/dx)**2+1)
+                    f_angle = point2Slope([tmp_x, tmp_y], [player1_x, player1_y])
+                    force.append([bullet_q/dist**dist_p*np.cos(f_angle), bullet_q/dist**dist_p*np.sin(f_angle)])
 
         # to avoid stocking at wall
         if player1_x > 0.9 or player1_x < 0.1:
