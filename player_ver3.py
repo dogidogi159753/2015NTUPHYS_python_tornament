@@ -18,7 +18,8 @@ def eval_collision(p, obj): # collision detection, only consider the center of o
 
 class player_module:
     parameter = {
-        "caution_dist" : 0.2,
+        "caution_dist" : 0.25,
+        "caution_dist_b": 0.465
     }
         
     # constructor, allocate any private date here
@@ -53,7 +54,7 @@ class player_module:
 
         # parameters
         caution_dist = self.parameter["caution_dist"]
-
+        caution_dist_b = self.parameter["caution_dist_b"]
         # flags
         release_gauge = False
 
@@ -102,7 +103,7 @@ class player_module:
             if dist <= nearest_enemy[0]:
                 if dist**2 >= ((x+dx-player1_x)**2+(y+dy-player1_y)**2):
                     nearest_enemy = [dist, data]
-            if type == 0 and dist < caution_dist:
+            if type == 0 and dist < caution_dist_b:
                 bullets.append(data)
 
         # take action    
