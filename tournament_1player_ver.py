@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.path as mpath
 import matplotlib.animation as animation
 
-import player_Yi as P1
+import player_ver3 as P1
 #import player_ver3 as P2
 
 print 'Imported Player 1:'
@@ -542,23 +542,23 @@ def animate(i):
                 ply_score[1] += 5
         if sp_player1.enabled and ply_gauge_freeze[0]==0:
             dist = ((sp_player1.x-sp_player2.x)**2 + (sp_player1.y-sp_player2.y)**2)**0.5
-            if dist<rho: ply_gauge_freeze[0]=50
+            if dist<rho: ply_gauge_freeze[0]=50'''
 
     # loop over all bullets from the invaders, check if it hits the player
     for sp in splist_bullet_inv:
         if sp_player1.enabled and sp_player1.eval_collision(sp):
             sp_player1.hp -= 1
             sp.hp -= 1
-        if sp_player2.enabled and sp_player2.eval_collision(sp):
+        ''''if sp_player2.enabled and sp_player2.eval_collision(sp):
             sp_player2.hp -= 1
-            sp.hp -= 1
+            sp.hp -= 1'''
 
     # loop over all invaders, check if it hits the player
     for sp in splist_invader:
         if sp_player1.enabled and sp_player1.eval_collision(sp):
             sp_player1.hp -= 1
             sp.hp -= 1
-        if sp_player2.enabled and sp_player2.eval_collision(sp):
+        '''if sp_player2.enabled and sp_player2.eval_collision(sp):
             sp_player2.hp -= 1
             sp.hp -= 1'''
 
@@ -747,7 +747,39 @@ def animate(i):
     return plt_invader1, plt_invader2, plt_invader3, plt_invader4, plt_ufo, plt_player1, plt_explosion, plt_bullet_inv, plt_bullet_ply, plt_tx_center, plt_tx_p1, plt_tx_p2, plt_tx_p1_hp, plt_tx_p2_hp, plt_gauge_p1, plt_gauge_p2, plt_gauge_attack_p1, plt_gauge_attack_p2
 
 # main animation function call
-anim = animation.FuncAnimation(fig, animate, init_func=init, interval=20)
+#anim = animation.FuncAnimation(fig, animate, init_func=init, interval=20)
 
+score = 0.
+for j in range(1, 31):
+    i = 0
+    while sp_player1.enabled:
+        animate(i)
+        i += 1
+    score += ply_score[0]
+    print j, "th p1's score:", score/j
+        # sprites for player 1 and 2
+    sp_player1 = sprite(0.25,0.2)
+    sp_player1.type = 5
+    sp_player1.path = 0
+    sp_player1.hp = 10
+    
+    # additional information for players
+    ply_score = [0,0]
+    ply_gauge = [1.,1.]
+    ply_gauge_attack = [0,0]
+    ply_gauge_freeze = [0,0]
+    
+    # sprite holders
+    splist_invader = []
+    splist_bullet_inv = []
+    splist_bullet_ply1 = []
+    splist_bullet_ply2 = []
+    splist_explosion = []
+    
+    invader_level = 1   # start with level 1
+    invader_fcount = 0  # counts of frames for adding new invader
+    center_message = ''
+    center_message_delay = 0
+print "p1's score:", score/30.
 # plt.tight_layout()
-plt.show()
+#plt.show()
