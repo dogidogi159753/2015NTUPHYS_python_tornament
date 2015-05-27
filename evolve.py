@@ -9,8 +9,8 @@ def fitness(parameter = None):
     r =  tournament_1player_ver.fitness(parameter)
     plt.close()
     return r
-step = 30
-loop = 3
+step = 5
+loop = 2
 x = np.linspace(0.1, 0.7, step)
 results = []
 for i in xrange(loop):
