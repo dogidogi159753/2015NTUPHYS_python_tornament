@@ -49,7 +49,7 @@ class player_module:
         speed, angle = 0., 0.
 
         # parameters
-        caution_dist = 0.23
+        caution_dist = 0.275
 
         # flags
         release_gauge = False
